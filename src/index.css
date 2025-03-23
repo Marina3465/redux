@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+}
+
+:root {
+  --primary-color: #4cc256;
+  --secondary-color: rgb(34, 150, 82);
+  --text-color: #fff;
+  --text-color-after: #c4c4c4;
+  --bg-color: #252525;
+}
