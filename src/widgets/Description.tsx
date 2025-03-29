@@ -2,7 +2,7 @@ import MDEditor from "@uiw/react-md-editor";
 import { useState } from "react";
 
 export function Description() {
-  const [value, setValue] = useState("**Hello world!!!**");
+  const [value, setValue] = useState("**настроить тосты**");
   return (
     <div
       style={{

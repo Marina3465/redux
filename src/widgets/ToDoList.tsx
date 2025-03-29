@@ -2,9 +2,14 @@ import { useState } from "react";
 import { Search } from "../feature/Search";
 import { ToDo } from "../feature/ToDo";
 import { AddToDo } from "../feature/AddToDo";
+import { useSelector } from "react-redux";
+import { RootState } from "../shared/redux/store";
 
 export function ToDoList() {
   const [checked, setChecked] = useState(false);
+  const todos = useSelector((state: RootState) => state.todos);
+  // const todos = JSON.parse(localStorage.getItem("todos") || "[]");
+
   return (
     <div
       style={{
@@ -21,7 +26,23 @@ export function ToDoList() {
         <AddToDo placeholder="Add TO DO" />
       </div>
       <div style={{ margin: "30px 0" }}>
-        <ToDo checked={checked} onChange={() => setChecked(!checked)} />
+        {todos?.map((todo, index) => (
+          <div
+            key={todo.id}
+            style={{
+              marginBottom: "15px",
+              borderBottom:
+                index !== todos.length - 1 ? "1px solid grey" : "none",
+              paddingBottom: "15px",
+            }}
+          >
+            <ToDo
+              name={todo.title}
+              checked={todo.isFinish}
+              onChange={() => setChecked(!checked)}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

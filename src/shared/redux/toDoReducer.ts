@@ -2,7 +2,7 @@ type State = {
   id: number;
   title: string;
   description: string;
-  isActive: boolean;
+  isFinish: boolean;
 };
 
 const initialState = { todos: [] as State[] };
@@ -14,7 +14,7 @@ type ToDoAction =
         id: number;
         title: string;
         description: string;
-        isActive: boolean;
+        isFinish: boolean;
       };
     }
   | { type: "REMOVE"; id: number };

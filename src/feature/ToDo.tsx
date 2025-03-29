@@ -45,15 +45,15 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-type Props = { checked: boolean; onChange: () => void };
+type Props = { checked: boolean; onChange: () => void; name: string };
 
-export const ToDo = ({ checked, onChange }: Props) => {
+export const ToDo = ({ checked, onChange, name }: Props) => {
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       <CheckboxWrapper>
         <HiddenCheckbox checked={checked} onChange={onChange} />
         <StyledCheckbox checked={checked} />
-        <ToDoText checked={checked}>Выбрать</ToDoText>
+        <ToDoText checked={checked}>{name}</ToDoText>
       </CheckboxWrapper>
       <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
         <Button onClick={() => console.log("edit")}>
