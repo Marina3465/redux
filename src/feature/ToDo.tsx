@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { State } from "../shared/redux/toDoReducer";
 
 const CheckboxWrapper = styled.label`
   display: flex;
@@ -45,21 +46,26 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-type Props = { checked: boolean; onChange: () => void; name: string };
+type Props = {
+  checked: boolean;
+  onChange: () => void;
+  todo: State;
+  onDelete: () => void;
+};
 
-export const ToDo = ({ checked, onChange, name }: Props) => {
+export const ToDo = ({ checked, onChange, todo, onDelete }: Props) => {
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       <CheckboxWrapper>
         <HiddenCheckbox checked={checked} onChange={onChange} />
         <StyledCheckbox checked={checked} />
-        <ToDoText checked={checked}>{name}</ToDoText>
+        <ToDoText checked={checked}>{todo.title}</ToDoText>
       </CheckboxWrapper>
       <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
         <Button onClick={() => console.log("edit")}>
           <img src="/edit.svg" alt="" />
         </Button>
-        <Button onClick={() => console.log("delete")}>
+        <Button onClick={onDelete}>
           <img src="/trash.svg" alt="" />
         </Button>
       </div>

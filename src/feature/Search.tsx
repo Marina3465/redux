@@ -1,7 +1,10 @@
+import { ChangeEvent } from "react";
 import styled from "styled-components";
 
 type Props = {
   placeholder: string;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const Input = styled.input`
@@ -17,6 +20,6 @@ const Input = styled.input`
   }
 `;
 
-export const Search = ({ placeholder }: Props) => {
-  return <Input placeholder={placeholder} />;
+export const Search = ({ placeholder, value, onChange }: Props) => {
+  return <Input value={value} onChange={onChange} placeholder={placeholder} />;
 };

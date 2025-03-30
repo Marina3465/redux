@@ -1,11 +1,13 @@
-type State = {
+export type State = {
   id: number;
   title: string;
   description: string;
   isFinish: boolean;
 };
 
-const initialState = { todos: [] as State[] };
+const initialState = {
+  todos: [] as State[],
+};
 
 type ToDoAction =
   | {
@@ -27,7 +29,9 @@ export const toDoReducer = (state = initialState, action: ToDoAction) => {
     case "REMOVE":
       return {
         ...state,
-        todos: state.todos.filter((todo) => todo.id !== action.id),
+        todos: state.todos.filter(
+          (todo: { id: number }) => todo.id !== action.id
+        ),
       };
 
     default:

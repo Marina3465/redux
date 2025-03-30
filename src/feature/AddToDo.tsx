@@ -24,13 +24,11 @@ export const AddToDo = ({ placeholder }: Props) => {
   const [title, setTitle] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // const todos = useSelector((state: RootState) => state.todos);
   const dispatch = useDispatch();
 
   const handleAddToDo = () => {
     if (title.trim()) {
       setIsLoading(true);
-      const existingTodos = JSON.parse(localStorage.getItem("todos") || "[]");
 
       const newTodo = {
         id: Date.now(),
@@ -43,11 +41,6 @@ export const AddToDo = ({ placeholder }: Props) => {
         type: "ADD",
         data: newTodo,
       });
-
-      localStorage.setItem(
-        "todos",
-        JSON.stringify([...existingTodos, newTodo])
-      );
 
       setTitle("");
       setIsLoading(false);
