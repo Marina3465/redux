@@ -2,9 +2,7 @@ import MDEditor from "@uiw/react-md-editor";
 import { useState } from "react";
 
 export function Description() {
-  const [value, setValue] = useState(
-    "**добавить получение данных из локал сторейдж**"
-  );
+  const [value, setValue] = useState("**починить поиск и добавить удаление**");
   return (
     <div
       style={{

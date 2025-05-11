@@ -12,14 +12,10 @@ const initialState = {
 type ToDoAction =
   | {
       type: "ADD";
-      data: {
-        id: number;
-        title: string;
-        description: string;
-        isFinish: boolean;
-      };
+      data: State;
     }
-  | { type: "REMOVE"; id: number };
+  | { type: "REMOVE"; id: number }
+  | { type: "FETCH_ALL"; data: State[] };
 
 export const toDoReducer = (state = initialState, action: ToDoAction) => {
   switch (action.type) {
@@ -32,6 +28,12 @@ export const toDoReducer = (state = initialState, action: ToDoAction) => {
         todos: state.todos.filter(
           (todo: { id: number }) => todo.id !== action.id
         ),
+      };
+
+    case "FETCH_ALL":
+      return {
+        ...state,
+        todos: action.data,
       };
 
     default:
