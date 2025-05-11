@@ -47,6 +47,7 @@ export const AddToDo = ({ placeholder }: Props) => {
 
       toast.success("Success add!", {
         theme: "dark",
+        autoClose: 2000,
       });
     }
   };

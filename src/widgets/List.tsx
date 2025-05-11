@@ -8,7 +8,7 @@ import { State } from "../shared/redux/toDoReducer";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
-export function ToDoList() {
+export function List() {
   const [checked, setChecked] = useState(false);
   const [search, setSearch] = useState("");
   const [data, setData] = useState<State[]>();
@@ -27,6 +27,7 @@ export function ToDoList() {
     });
     toast.success("Success delete!", {
       theme: "dark",
+      autoClose: 2000,
     });
   };
 
@@ -34,10 +35,8 @@ export function ToDoList() {
     const query = e.target.value.toLowerCase();
     setSearch(query);
 
-    const filtered = todos.filter(
-      (todo) =>
-        todo.title.toLowerCase().includes(query) ||
-        todo.description.toLowerCase().includes(query)
+    const filtered = todos.filter((todo) =>
+      todo.title.toLowerCase().includes(query)
     );
 
     setData(filtered);

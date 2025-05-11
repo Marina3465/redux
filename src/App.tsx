@@ -1,14 +1,14 @@
 import { Provider } from "react-redux";
 import "./App.css";
 import { Description } from "./widgets/Description";
-import { ToDoList } from "./widgets/ToDoList";
+import { List } from "./widgets/List";
 import { store } from "./shared/redux/store";
 
 function App() {
   return (
     <Provider store={store}>
       <div style={{ display: "flex" }}>
-        <ToDoList />
+        <List />
         <Description />
       </div>
     </Provider>
