@@ -19,7 +19,6 @@ export function List() {
   const todos = useAppSelector((state: RootState) => state.toDo.todos);
   const isLoading = useAppSelector((state: RootState) => state.toDo.loading);
 
-  // const [checked, setChecked] = useState(false);
   const [search, setSearch] = useState("");
   const [filteredTodos, setFilteredTodos] = useState<State[]>(todos);
 
@@ -62,7 +61,6 @@ export function List() {
 
   return (
     <>
-      {" "}
       <div
         style={{
           background: "var(--bg-color)",

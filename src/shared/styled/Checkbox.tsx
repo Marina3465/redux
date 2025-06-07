@@ -10,7 +10,7 @@ type Props = {
 
 export const Checkbox = ({ title, id, onChange, checked }: Props) => {
   return (
-    <div className="checkbox-wrapper-15">
+    <div className="checkbox-wrapper-15" onClick={(e) => e.stopPropagation()}>
       <input
         className="inp-cbx"
         id={String(id)}

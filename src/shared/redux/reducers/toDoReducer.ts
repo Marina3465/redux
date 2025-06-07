@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
 export type State = {
@@ -76,11 +76,7 @@ export const statusUpdateToDo = createAsyncThunk<
 const toDoSlice = createSlice({
   name: "toDo",
   initialState,
-  reducers: {
-    fetchAll(state, action: PayloadAction<State[]>) {
-      state.todos = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(loadTodos.fulfilled, (state, action) => {
@@ -129,5 +125,4 @@ const toDoSlice = createSlice({
   },
 });
 
-export const { fetchAll } = toDoSlice.actions;
 export default toDoSlice.reducer;

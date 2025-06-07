@@ -1,3 +1,4 @@
+import { MouseEvent } from "react";
 import cn from "classnames";
 import "./style.css";
 
@@ -7,7 +8,7 @@ export const Button = ({
   type = "origin",
 }: {
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
   type?: "origin" | "transparent";
 }) => {
   return (

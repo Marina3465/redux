@@ -1,7 +1,9 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, MouseEvent } from "react";
 import { State } from "../shared/redux/reducers/toDoReducer";
 import { Button } from "../shared/styled/Button";
 import { Checkbox } from "../shared/styled/Checkbox";
+import { useAppDispatch } from "../shared/redux/store";
+import { selectToDo } from "../shared/redux/reducers/selectToDoReducer";
 
 type Props = {
   checked: boolean;
@@ -11,13 +13,18 @@ type Props = {
 };
 
 export const ToDo = ({ todo, onDelete, handleCheckToDo, checked }: Props) => {
+  console.log(todo);
+  const dispatch = useAppDispatch();
+
   return (
     <div
       style={{
         display: "flex",
         justifyContent: "space-between",
         overflow: "hidden",
+        cursor: "pointer",
       }}
+      onClick={() => dispatch(selectToDo(todo))}
     >
       <Checkbox
         title={todo.title}
@@ -26,7 +33,13 @@ export const ToDo = ({ todo, onDelete, handleCheckToDo, checked }: Props) => {
         checked={checked}
       />
       <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-        <Button type="transparent" onClick={onDelete}>
+        <Button
+          type="transparent"
+          onClick={(e: MouseEvent<HTMLButtonElement>) => {
+            e.stopPropagation();
+            onDelete();
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
