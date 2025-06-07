@@ -16,18 +16,29 @@ import {
 import { Loading } from "./Loading";
 
 export function List() {
-  const [checked, setChecked] = useState(false);
-  const [search, setSearch] = useState("");
-  // const [data, setData] = useState<State[]>();
-
   const todos = useAppSelector((state: RootState) => state.toDo.todos);
   const isLoading = useAppSelector((state: RootState) => state.toDo.loading);
+
+  // const [checked, setChecked] = useState(false);
+  const [search, setSearch] = useState("");
+  const [filteredTodos, setFilteredTodos] = useState<State[]>(todos);
+
   const dispatch = useAppDispatch();
-  console.log(todos);
 
   useEffect(() => {
     dispatch(loadTodos());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (search.trim() === "") {
+      setFilteredTodos(todos);
+    } else {
+      const filtered = todos.filter((todo) =>
+        todo.title.toLowerCase().includes(search.toLowerCase())
+      );
+      setFilteredTodos(filtered);
+    }
+  }, [todos, search]);
 
   const handleDelete = (id: number) => {
     dispatch(deleteToDo(id));
@@ -40,12 +51,13 @@ export function List() {
   };
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    // const query = e.target.value.toLowerCase();
-    // setSearch(query);
-    // const filtered = todos.filter((todo) =>
-    //   todo.title.toLowerCase().includes(query)
-    // );
-    // setData(filtered);
+    const query = e.target.value.toLowerCase();
+    setSearch(query);
+
+    const filtered = todos.filter((todo) =>
+      todo.title.toLowerCase().includes(query)
+    );
+    setFilteredTodos(filtered);
   };
 
   return (
@@ -71,20 +83,21 @@ export function List() {
           <AddToDo placeholder="Add TO DO" />
         </div>
         <div style={{ margin: "30px 0" }}>
-          {[...todos].reverse()?.map((todo: State, index: number) => (
+          {[...filteredTodos].reverse()?.map((todo: State, index: number) => (
             <div
               key={todo.id}
               style={{
                 marginBottom: "15px",
                 borderBottom:
-                  index !== todos.length - 1 ? "1px solid grey" : "none",
+                  index !== filteredTodos.length - 1
+                    ? "1px solid grey"
+                    : "none",
                 paddingBottom: "15px",
               }}
             >
               <ToDo
                 todo={todo}
                 checked={todo.isFinish}
-                onChange={() => setChecked(!checked)}
                 onDelete={() => handleDelete(todo.id)}
                 handleCheckToDo={handleCheckToDo}
               />

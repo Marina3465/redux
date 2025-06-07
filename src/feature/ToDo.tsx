@@ -5,7 +5,6 @@ import { Checkbox } from "../shared/styled/Checkbox";
 
 type Props = {
   checked: boolean;
-  onChange: () => void;
   todo: State;
   onDelete: () => void;
   handleCheckToDo: (e: ChangeEvent<HTMLInputElement>) => void;
