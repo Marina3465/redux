@@ -1,6 +1,14 @@
+import { ChangeEvent } from "react";
 import "./style.css";
 
-export const Checkbox = ({ title, id }: { title: string; id: number }) => {
+type Props = {
+  title: string;
+  id: number;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  checked: boolean;
+};
+
+export const Checkbox = ({ title, id, onChange, checked }: Props) => {
   return (
     <div className="checkbox-wrapper-15">
       <input
@@ -8,6 +16,8 @@ export const Checkbox = ({ title, id }: { title: string; id: number }) => {
         id={String(id)}
         type="checkbox"
         style={{ display: " none" }}
+        onChange={onChange}
+        checked={checked}
       />
       <label className="cbx" htmlFor={String(id)}>
         <span>
@@ -15,7 +25,17 @@ export const Checkbox = ({ title, id }: { title: string; id: number }) => {
             <polyline points="1 5 4 8 11 1"></polyline>
           </svg>
         </span>
-        <span>{title}</span>
+        <span
+          style={{
+            textTransform: "uppercase",
+            maxWidth: "250px",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {title}
+        </span>
       </label>
     </div>
   );

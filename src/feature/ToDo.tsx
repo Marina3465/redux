@@ -1,4 +1,5 @@
-import { State } from "../shared/redux/toDoReducer";
+import { ChangeEvent } from "react";
+import { State } from "../shared/redux/reducers/toDoReducer";
 import { Button } from "../shared/styled/Button";
 import { Checkbox } from "../shared/styled/Checkbox";
 
@@ -7,9 +8,10 @@ type Props = {
   onChange: () => void;
   todo: State;
   onDelete: () => void;
+  handleCheckToDo: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const ToDo = ({ todo, onDelete }: Props) => {
+export const ToDo = ({ todo, onDelete, handleCheckToDo, checked }: Props) => {
   return (
     <div
       style={{
@@ -18,7 +20,12 @@ export const ToDo = ({ todo, onDelete }: Props) => {
         overflow: "hidden",
       }}
     >
-      <Checkbox title={todo.title} id={todo.id} />
+      <Checkbox
+        title={todo.title}
+        id={todo.id}
+        onChange={handleCheckToDo}
+        checked={checked}
+      />
       <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
         <Button type="transparent" onClick={onDelete}>
           <svg

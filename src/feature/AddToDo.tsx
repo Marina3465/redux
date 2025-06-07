@@ -1,11 +1,11 @@
 import { styled } from "styled-components";
-import { useDispatch } from "react-redux";
 import { ChangeEvent, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Loading } from "../widgets/Loading";
 import { Button } from "../shared/styled/Button";
-import { postAddToDo } from "../shared/redux/thunk/postToDo";
+import { useAppDispatch } from "../shared/redux/store";
+import { addToDo } from "../shared/redux/reducers/toDoReducer";
 
 const Input = styled.input`
   background: var(--bg-color);
@@ -24,22 +24,20 @@ type Props = {
 export const AddToDo = ({ placeholder }: Props) => {
   const [title, setTitle] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleAddToDo = async () => {
     if (title.trim()) {
       setIsLoading(true);
-
-      await postAddToDo(title, dispatch);
-
+      const newToDo = {
+        id: Date.now(),
+        title: title,
+        description: "Some description",
+        isFinish: false,
+      };
+      dispatch(addToDo(newToDo));
       setTitle("");
       setIsLoading(false);
-
-      toast.success("Success add!", {
-        theme: "dark",
-        autoClose: 1000,
-      });
     }
   };
 

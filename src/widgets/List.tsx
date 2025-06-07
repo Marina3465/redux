@@ -2,60 +2,50 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Search } from "../feature/Search";
 import { ToDo } from "../feature/ToDo";
 import { AddToDo } from "../feature/AddToDo";
-import { useSelector } from "react-redux";
-import { RootState } from "../shared/redux/store";
-import { State } from "../shared/redux/toDoReducer";
-import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
-import { getToDos } from "../shared/redux/thunk/getToDos";
+import {
+  RootState,
+  useAppDispatch,
+  useAppSelector,
+} from "../shared/redux/store";
+import {
+  deleteToDo,
+  loadTodos,
+  State,
+  statusUpdateToDo,
+} from "../shared/redux/reducers/toDoReducer";
 import { Loading } from "./Loading";
 
 export function List() {
   const [checked, setChecked] = useState(false);
   const [search, setSearch] = useState("");
-  const [data, setData] = useState<State[]>();
-  const [isLoading, setIsLoading] = useState(true);
+  // const [data, setData] = useState<State[]>();
 
-  const todos = useSelector((state: RootState) => state.todos);
-  const dispatch = useDispatch();
+  const todos = useAppSelector((state: RootState) => state.toDo.todos);
+  const isLoading = useAppSelector((state: RootState) => state.toDo.loading);
+  const dispatch = useAppDispatch();
+  console.log(todos);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const response = await getToDos(dispatch);
-        if (response) setData(response);
-        else setData(todos);
-      } catch (error) {
-        console.error("Error fetching todos:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [dispatch, todos]);
+    dispatch(loadTodos());
+  }, [dispatch]);
 
   const handleDelete = (id: number) => {
-    dispatch({
-      type: "REMOVE",
-      id,
-    });
-    toast.success("Success delete!", {
-      theme: "dark",
-      autoClose: 2000,
-    });
+    dispatch(deleteToDo(id));
+  };
+
+  const handleCheckToDo = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(
+      statusUpdateToDo({ id: Number(e.target.id), status: e.target.checked })
+    );
   };
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value.toLowerCase();
-    setSearch(query);
-
-    const filtered = todos.filter((todo) =>
-      todo.title.toLowerCase().includes(query)
-    );
-
-    setData(filtered);
+    // const query = e.target.value.toLowerCase();
+    // setSearch(query);
+    // const filtered = todos.filter((todo) =>
+    //   todo.title.toLowerCase().includes(query)
+    // );
+    // setData(filtered);
   };
 
   return (
@@ -81,13 +71,13 @@ export function List() {
           <AddToDo placeholder="Add TO DO" />
         </div>
         <div style={{ margin: "30px 0" }}>
-          {data?.map((todo: State, index: number) => (
+          {[...todos].reverse()?.map((todo: State, index: number) => (
             <div
               key={todo.id}
               style={{
                 marginBottom: "15px",
                 borderBottom:
-                  index !== data.length - 1 ? "1px solid grey" : "none",
+                  index !== todos.length - 1 ? "1px solid grey" : "none",
                 paddingBottom: "15px",
               }}
             >
@@ -96,6 +86,7 @@ export function List() {
                 checked={todo.isFinish}
                 onChange={() => setChecked(!checked)}
                 onDelete={() => handleDelete(todo.id)}
+                handleCheckToDo={handleCheckToDo}
               />
             </div>
           ))}
