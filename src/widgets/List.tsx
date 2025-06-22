@@ -12,6 +12,7 @@ import { Loading } from "./Loading";
 import { loadTodos } from "../shared/api/loadTodos";
 import { deleteToDo } from "../shared/api/deleteToDo";
 import { statusUpdateToDo } from "../shared/api/statusUpdateToDo";
+import { EmptyList } from "../feature/EmptyList";
 
 export function List() {
   const todos = useAppSelector((state: RootState) => state.toDo.todos);
@@ -77,26 +78,30 @@ export function List() {
           <AddToDo placeholder="Add TO DO" />
         </div>
         <div style={{ margin: "30px 0" }}>
-          {[...filteredTodos].reverse()?.map((todo: State, index: number) => (
-            <div
-              key={todo.id}
-              style={{
-                marginBottom: "15px",
-                borderBottom:
-                  index !== filteredTodos.length - 1
-                    ? "1px solid grey"
-                    : "none",
-                paddingBottom: "15px",
-              }}
-            >
-              <ToDo
-                todo={todo}
-                checked={todo.isFinish}
-                onDelete={() => handleDelete(todo.id)}
-                handleCheckToDo={handleCheckToDo}
-              />
-            </div>
-          ))}
+          {filteredTodos.length !== 0 ? (
+            [...filteredTodos].reverse().map((todo: State, index: number) => (
+              <div
+                key={todo.id}
+                style={{
+                  marginBottom: "15px",
+                  borderBottom:
+                    index !== filteredTodos.length - 1
+                      ? "1px solid grey"
+                      : "none",
+                  paddingBottom: "15px",
+                }}
+              >
+                <ToDo
+                  todo={todo}
+                  checked={todo.isFinish}
+                  onDelete={() => handleDelete(todo.id)}
+                  handleCheckToDo={handleCheckToDo}
+                />
+              </div>
+            ))
+          ) : (
+            <EmptyList />
+          )}
         </div>
       </div>
       {isLoading && <Loading />}

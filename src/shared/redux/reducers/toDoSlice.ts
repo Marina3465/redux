@@ -5,6 +5,7 @@ import { addToDo } from "../../api/addToDo";
 import { deleteToDo } from "../../api/deleteToDo";
 import { statusUpdateToDo } from "../../api/statusUpdateToDo";
 import { saveDescription } from "../../api/saveDescription";
+import { saveTitle } from "../../api/saveTitle";
 
 export type State = {
   id: string;
@@ -90,6 +91,24 @@ const toDoSlice = createSlice({
         if (state.selectedToDo?.id === id) {
           state.selectedToDo = { ...state.selectedToDo, description };
         }
+      })
+      .addCase(saveTitle.fulfilled, (state, action) => {
+        const { id, title } = action.payload;
+        state.loading = false;
+        state.todos = state.todos.map((item) =>
+          item.id === id ? { ...item, title } : item
+        );
+
+        if (state.selectedToDo?.id === id) {
+          state.selectedToDo = { ...state.selectedToDo, title };
+        }
+        toast.success("Success title update!", {
+          theme: "dark",
+          autoClose: 2000,
+        });
+      })
+      .addCase(saveTitle.pending, (state) => {
+        state.loading = true;
       });
   },
 });

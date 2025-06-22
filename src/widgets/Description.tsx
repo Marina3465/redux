@@ -4,6 +4,7 @@ import { RootState, useAppSelector } from "../shared/redux/store";
 import { EmptyDescription } from "./EmptyDescription";
 import { saveDescription } from "../shared/api/saveDescription";
 import { useAppDispatch } from "../shared/redux/store";
+import { EditableTitle } from "../feature/EditableTitle";
 
 export function Description() {
   const dispatch = useAppDispatch();
@@ -46,39 +47,34 @@ export function Description() {
         flexDirection: "column",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          marginBottom: "20px",
-        }}
-      >
-        <h1
-          style={{
-            color: "var(--text-color)",
-            fontSize: "30px",
-          }}
-        >
-          {selectedToDo?.title}
-        </h1>
-        {isSaved && (
-          <span
+      {selectedToDo ? (
+        <>
+          <div
             style={{
-              color: "var(--text-color-after)",
-              fontSize: "18px",
-              marginLeft: "30px",
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "20px",
             }}
           >
-            Saved
-          </span>
-        )}
-      </div>
-      {selectedToDo ? (
-        <MDEditor
-          style={{ flex: 1 }}
-          value={value}
-          onChange={(val) => setValue(val || "")}
-        />
+            <EditableTitle title={selectedToDo?.title} id={selectedToDo?.id} />
+            {isSaved && (
+              <span
+                style={{
+                  color: "var(--text-color-after)",
+                  fontSize: "18px",
+                  marginLeft: "30px",
+                }}
+              >
+                Saved
+              </span>
+            )}
+          </div>
+          <MDEditor
+            style={{ flex: 1 }}
+            value={value}
+            onChange={(val) => setValue(val || "")}
+          />
+        </>
       ) : (
         <EmptyDescription />
       )}
