@@ -5,8 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { Loading } from "../widgets/Loading";
 import { Button } from "../shared/styled/Button";
 import { useAppDispatch } from "../shared/redux/store";
-import { addToDo } from "../shared/redux/reducers/toDoReducer";
 import { nanoid } from "nanoid";
+import { addToDo } from "../shared/api/addToDo";
 
 const Input = styled.input`
   background: var(--bg-color);
@@ -50,6 +50,11 @@ export const AddToDo = ({ placeholder }: Props) => {
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setTitle(e.target.value)
           }
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleAddToDo();
+            }
+          }}
           placeholder={placeholder}
         />
         <Button onClick={handleAddToDo}>

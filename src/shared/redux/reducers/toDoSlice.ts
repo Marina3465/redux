@@ -1,5 +1,10 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { loadTodos } from "../../api/loadTodos";
+import { addToDo } from "../../api/addToDo";
+import { deleteToDo } from "../../api/deleteToDo";
+import { statusUpdateToDo } from "../../api/statusUpdateToDo";
+import { saveDescription } from "../../api/saveDescription";
 
 export type State = {
   id: string;
@@ -8,75 +13,26 @@ export type State = {
   isFinish: boolean;
 };
 
-type ToDoState = {
+export type ToDoState = {
   todos: State[];
   loading: boolean;
+  selectedToDo: State | null;
 };
 
 const initialState: ToDoState = {
   todos: [],
   loading: false,
+  selectedToDo: null,
 };
-
-export const loadTodos = createAsyncThunk<State[]>("loadToDo", async () => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  const data = localStorage.getItem("todos");
-
-  return data ? JSON.parse(data) : [];
-});
-
-export const addToDo = createAsyncThunk<
-  State,
-  State,
-  { state: { toDo: ToDoState } }
->("addToDo", async (newToDo, thunkApi) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  const state = thunkApi.getState().toDo.todos;
-  const updatedToDos = [...state, newToDo];
-  localStorage.setItem("todos", JSON.stringify(updatedToDos));
-
-  return newToDo;
-});
-
-export const deleteToDo = createAsyncThunk<
-  string,
-  string,
-  { state: { toDo: ToDoState } }
->("deleteToDo", async (id, thunkApi) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  const state = thunkApi.getState().toDo.todos;
-  const updatedToDos = [...state].filter((item) => item.id !== id);
-
-  localStorage.setItem("todos", JSON.stringify(updatedToDos));
-  return id;
-});
-
-export const statusUpdateToDo = createAsyncThunk<
-  {
-    id: string;
-    status: boolean;
-  },
-  {
-    id: string;
-    status: boolean;
-  },
-  { state: { toDo: ToDoState } }
->("statusUpdateToDo", async ({ id, status }, thunkApi) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  const state = thunkApi.getState().toDo.todos;
-  const updatedToDos = [...state].map((item) =>
-    item.id === id ? { ...item, isFinish: status } : item
-  );
-  localStorage.setItem("todos", JSON.stringify(updatedToDos));
-  return { id, status };
-});
 
 const toDoSlice = createSlice({
   name: "toDo",
   initialState,
-  reducers: {},
+  reducers: {
+    selectToDo: (state, action: PayloadAction<State>) => {
+      state.selectedToDo = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loadTodos.fulfilled, (state, action) => {
@@ -89,6 +45,7 @@ const toDoSlice = createSlice({
       .addCase(addToDo.fulfilled, (state, action) => {
         state.loading = false;
         state.todos.push(action.payload);
+        state.selectedToDo = action.payload;
         toast.success("Success add!", {
           theme: "dark",
           autoClose: 1000,
@@ -100,6 +57,7 @@ const toDoSlice = createSlice({
       .addCase(deleteToDo.fulfilled, (state, action) => {
         state.loading = false;
         state.todos = state.todos.filter((item) => item.id !== action.payload);
+        state.selectedToDo = null;
         toast.success("Success delete!", {
           theme: "dark",
           autoClose: 2000,
@@ -121,8 +79,20 @@ const toDoSlice = createSlice({
       })
       .addCase(statusUpdateToDo.pending, (state) => {
         state.loading = true;
+      })
+      .addCase(saveDescription.fulfilled, (state, action) => {
+        const { id, description } = action.payload;
+
+        state.todos = state.todos.map((item) =>
+          item.id === id ? { ...item, description } : item
+        );
+
+        if (state.selectedToDo?.id === id) {
+          state.selectedToDo = { ...state.selectedToDo, description };
+        }
       });
   },
 });
 
+export const { selectToDo } = toDoSlice.actions;
 export default toDoSlice.reducer;

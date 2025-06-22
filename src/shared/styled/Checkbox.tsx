@@ -13,13 +13,13 @@ export const Checkbox = ({ title, id, onChange, checked }: Props) => {
     <div className="checkbox-wrapper-15" onClick={(e) => e.stopPropagation()}>
       <input
         className="inp-cbx"
-        id={String(id)}
+        id={id}
         type="checkbox"
-        style={{ display: " none" }}
+        style={{ display: "none" }}
         onChange={onChange}
         checked={checked}
       />
-      <label className="cbx" htmlFor={String(id)}>
+      <label className="cbx" htmlFor={id}>
         <span>
           <svg width="12px" height="9px" viewBox="0 0 12 9">
             <polyline points="1 5 4 8 11 1"></polyline>

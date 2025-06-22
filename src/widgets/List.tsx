@@ -7,13 +7,11 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../shared/redux/store";
-import {
-  deleteToDo,
-  loadTodos,
-  State,
-  statusUpdateToDo,
-} from "../shared/redux/reducers/toDoReducer";
+import { State } from "../shared/redux/reducers/toDoSlice";
 import { Loading } from "./Loading";
+import { loadTodos } from "../shared/api/loadTodos";
+import { deleteToDo } from "../shared/api/deleteToDo";
+import { statusUpdateToDo } from "../shared/api/statusUpdateToDo";
 
 export function List() {
   const todos = useAppSelector((state: RootState) => state.toDo.todos);

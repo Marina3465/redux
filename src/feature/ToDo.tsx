@@ -1,9 +1,8 @@
 import { ChangeEvent, MouseEvent } from "react";
-import { State } from "../shared/redux/reducers/toDoReducer";
+import { selectToDo, State } from "../shared/redux/reducers/toDoSlice";
 import { Button } from "../shared/styled/Button";
 import { Checkbox } from "../shared/styled/Checkbox";
 import { useAppDispatch } from "../shared/redux/store";
-import { selectToDo } from "../shared/redux/reducers/selectToDoReducer";
 
 type Props = {
   checked: boolean;
@@ -13,7 +12,6 @@ type Props = {
 };
 
 export const ToDo = ({ todo, onDelete, handleCheckToDo, checked }: Props) => {
-  console.log(todo);
   const dispatch = useAppDispatch();
 
   return (
@@ -24,7 +22,9 @@ export const ToDo = ({ todo, onDelete, handleCheckToDo, checked }: Props) => {
         overflow: "hidden",
         cursor: "pointer",
       }}
-      onClick={() => dispatch(selectToDo(todo))}
+      onClick={() => {
+        dispatch(selectToDo(todo));
+      }}
     >
       <Checkbox
         title={todo.title}
