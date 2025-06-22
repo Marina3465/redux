@@ -39,14 +39,12 @@ export function List() {
     }
   }, [todos, search]);
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     dispatch(deleteToDo(id));
   };
 
   const handleCheckToDo = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(
-      statusUpdateToDo({ id: Number(e.target.id), status: e.target.checked })
-    );
+    dispatch(statusUpdateToDo({ id: e.target.id, status: e.target.checked }));
   };
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {

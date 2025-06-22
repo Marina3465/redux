@@ -6,6 +6,7 @@ import { Loading } from "../widgets/Loading";
 import { Button } from "../shared/styled/Button";
 import { useAppDispatch } from "../shared/redux/store";
 import { addToDo } from "../shared/redux/reducers/toDoReducer";
+import { nanoid } from "nanoid";
 
 const Input = styled.input`
   background: var(--bg-color);
@@ -30,7 +31,7 @@ export const AddToDo = ({ placeholder }: Props) => {
     if (title.trim()) {
       setIsLoading(true);
       const newToDo = {
-        id: Date.now(),
+        id: nanoid(),
         title: title,
         description: "Some description",
         isFinish: false,

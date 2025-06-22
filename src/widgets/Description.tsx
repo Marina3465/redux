@@ -1,5 +1,5 @@
 import MDEditor from "@uiw/react-md-editor";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RootState, useAppSelector } from "../shared/redux/store";
 
 export function Description() {
@@ -8,7 +8,10 @@ export function Description() {
   );
   const [value, setValue] = useState(todo?.description);
 
-  console.log(todo);
+  useEffect(() => {
+    setValue(todo?.description);
+    console.log(todo);
+  }, [todo]);
 
   return (
     <div

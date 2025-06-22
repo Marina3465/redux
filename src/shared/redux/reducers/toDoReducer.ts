@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
 export type State = {
-  id: number;
+  id: string;
   title: string;
   description: string;
   isFinish: boolean;
@@ -41,8 +41,8 @@ export const addToDo = createAsyncThunk<
 });
 
 export const deleteToDo = createAsyncThunk<
-  number,
-  number,
+  string,
+  string,
   { state: { toDo: ToDoState } }
 >("deleteToDo", async (id, thunkApi) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -55,11 +55,11 @@ export const deleteToDo = createAsyncThunk<
 
 export const statusUpdateToDo = createAsyncThunk<
   {
-    id: number;
+    id: string;
     status: boolean;
   },
   {
-    id: number;
+    id: string;
     status: boolean;
   },
   { state: { toDo: ToDoState } }

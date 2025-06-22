@@ -14,6 +14,7 @@
     "@types/styled-components": "^5.1.34",
     "@uiw/react-md-editor": "^4.0.5",
     "classnames": "^2.5.1",
+    "nanoid": "^5.1.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-redux": "^9.2.0",

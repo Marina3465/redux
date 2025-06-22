@@ -3,7 +3,7 @@ import "./style.css";
 
 type Props = {
   title: string;
-  id: number;
+  id: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   checked: boolean;
 };
