@@ -73,7 +73,7 @@ export function List() {
               return (
                 <div
                   key={todo.id}
-                  className={`${styles.todoItem} ${isLast ?? styles.last}`}
+                  className={`${styles.todoItem} ${isLast ? "" : styles.last}`}
                 >
                   <ToDo
                     todo={todo}
