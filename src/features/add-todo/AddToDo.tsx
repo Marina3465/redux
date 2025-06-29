@@ -2,11 +2,11 @@ import { styled } from "styled-components";
 import { ChangeEvent, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Loading } from "../widgets/Loading";
-import { Button } from "../shared/styled/Button";
-import { useAppDispatch } from "../shared/redux/store";
+import { Loading } from "../../shared/ui/Loading";
+import { Button } from "../../shared/ui/Button";
+import { useAppDispatch } from "../../store";
 import { nanoid } from "nanoid";
-import { addToDo } from "../shared/api/addToDo";
+import { createToDo } from "../../entities/todo/api";
 
 const Input = styled.input`
   background: var(--bg-color);
@@ -36,7 +36,7 @@ export const AddToDo = ({ placeholder }: Props) => {
         description: "Some description",
         isFinish: false,
       };
-      dispatch(addToDo(newToDo));
+      dispatch(createToDo(newToDo));
       setTitle("");
       setIsLoading(false);
     }

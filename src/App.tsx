@@ -2,7 +2,7 @@ import { Provider } from "react-redux";
 import "./App.css";
 import { Description } from "./widgets/Description";
 import { List } from "./widgets/List";
-import { store } from "./shared/redux/store";
+import { store } from "./store";
 
 function App() {
   return (

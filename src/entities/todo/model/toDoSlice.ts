@@ -1,24 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { loadTodos } from "../../api/loadTodos";
-import { addToDo } from "../../api/addToDo";
-import { deleteToDo } from "../../api/deleteToDo";
-import { statusUpdateToDo } from "../../api/statusUpdateToDo";
-import { saveDescription } from "../../api/saveDescription";
-import { saveTitle } from "../../api/saveTitle";
-
-export type State = {
-  id: string;
-  title: string;
-  description: string;
-  isFinish: boolean;
-};
-
-export type ToDoState = {
-  todos: State[];
-  loading: boolean;
-  selectedToDo: State | null;
-};
+import { loadTodos } from "../api/loadTodos";
+import { createToDo } from "../api/createToDo";
+import { deleteToDo } from "../api/deleteToDo";
+import { updateStatusToDo } from "../api/updateStatusToDo";
+import { saveDescription } from "../api/saveDescription";
+import { saveTitle } from "../api/saveTitle";
+import { State, ToDoState } from "../types/ToDoState";
 
 const initialState: ToDoState = {
   todos: [],
@@ -43,7 +31,7 @@ const toDoSlice = createSlice({
       .addCase(loadTodos.pending, (state) => {
         state.loading = true;
       })
-      .addCase(addToDo.fulfilled, (state, action) => {
+      .addCase(createToDo.fulfilled, (state, action) => {
         state.loading = false;
         state.todos.push(action.payload);
         state.selectedToDo = action.payload;
@@ -52,7 +40,7 @@ const toDoSlice = createSlice({
           autoClose: 1000,
         });
       })
-      .addCase(addToDo.pending, (state) => {
+      .addCase(createToDo.pending, (state) => {
         state.loading = true;
       })
       .addCase(deleteToDo.fulfilled, (state, action) => {
@@ -67,7 +55,7 @@ const toDoSlice = createSlice({
       .addCase(deleteToDo.pending, (state) => {
         state.loading = true;
       })
-      .addCase(statusUpdateToDo.fulfilled, (state, action) => {
+      .addCase(updateStatusToDo.fulfilled, (state, action) => {
         const { id, status } = action.payload;
         state.loading = false;
         state.todos = state.todos.map((item) =>
@@ -78,7 +66,7 @@ const toDoSlice = createSlice({
           autoClose: 2000,
         });
       })
-      .addCase(statusUpdateToDo.pending, (state) => {
+      .addCase(updateStatusToDo.pending, (state) => {
         state.loading = true;
       })
       .addCase(saveDescription.fulfilled, (state, action) => {

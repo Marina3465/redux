@@ -1,10 +1,10 @@
 import MDEditor from "@uiw/react-md-editor";
 import { useEffect, useState } from "react";
-import { RootState, useAppSelector } from "../shared/redux/store";
-import { EmptyDescription } from "./EmptyDescription";
-import { saveDescription } from "../shared/api/saveDescription";
-import { useAppDispatch } from "../shared/redux/store";
-import { EditableTitle } from "../feature/EditableTitle";
+import { RootState, useAppSelector } from "../store";
+import { EmptyDescription } from "../shared/ui/EmptyDescription";
+import { saveDescription } from "../entities/todo/api/saveDescription";
+import { useAppDispatch } from "../store";
+import { EditableTitle } from "../features/title/EditableTitle";
 
 export function Description() {
   const dispatch = useAppDispatch();

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ToDoState } from "../redux/reducers/toDoSlice";
+import { ToDoState } from "../types/ToDoState";
 
 export const saveDescription = createAsyncThunk<
   { id: string; description: string },

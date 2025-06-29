@@ -1,18 +1,11 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { Search } from "../feature/Search";
-import { ToDo } from "../feature/ToDo";
-import { AddToDo } from "../feature/AddToDo";
-import {
-  RootState,
-  useAppDispatch,
-  useAppSelector,
-} from "../shared/redux/store";
-import { State } from "../shared/redux/reducers/toDoSlice";
-import { Loading } from "./Loading";
-import { loadTodos } from "../shared/api/loadTodos";
-import { deleteToDo } from "../shared/api/deleteToDo";
-import { statusUpdateToDo } from "../shared/api/statusUpdateToDo";
-import { EmptyList } from "../feature/EmptyList";
+import { RootState, useAppDispatch, useAppSelector } from "../store";
+import { Search } from "../features/search-todo/Search";
+import { AddToDo } from "../features/add-todo/AddToDo";
+import { ToDo } from "../entities/todo/ui/ToDo";
+import { EmptyList, Loading } from "../shared/ui";
+import { deleteToDo, loadTodos, updateStatusToDo } from "../entities/todo/api";
+import { State } from "../entities/todo/types/ToDoState";
 
 export function List() {
   const todos = useAppSelector((state: RootState) => state.toDo.todos);
@@ -43,7 +36,7 @@ export function List() {
   };
 
   const handleCheckToDo = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(statusUpdateToDo({ id: e.target.id, status: e.target.checked }));
+    dispatch(updateStatusToDo({ id: e.target.id, status: e.target.checked }));
   };
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { useAppDispatch } from "../shared/redux/store";
-import { saveTitle } from "../shared/api/saveTitle";
+import { useAppDispatch } from "../../store";
+import { saveTitle } from "../../entities/todo/api/saveTitle";
 
 export function EditableTitle({ title, id }: { title: string; id: string }) {
   const dispatch = useAppDispatch();
   const [value, setValue] = useState(title);
 
   useEffect(() => {
-    setValue(title); // при смене selectedToDo обновляем title
+    setValue(title);
   }, [title]);
 
   const save = () => {
@@ -19,7 +19,7 @@ export function EditableTitle({ title, id }: { title: string; id: string }) {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      (e.target as HTMLInputElement).blur(); // чтобы onBlur тоже сработал
+      (e.target as HTMLInputElement).blur();
     }
   };
 
@@ -38,7 +38,6 @@ export function EditableTitle({ title, id }: { title: string; id: string }) {
         outline: "none",
         padding: "4px 0",
         marginBottom: "20px",
-        // width: "fit-content",
         width: "90%",
       }}
     />

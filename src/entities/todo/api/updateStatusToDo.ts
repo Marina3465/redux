@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ToDoState } from "../redux/reducers/toDoSlice";
+import { ToDoState } from "../types/ToDoState";
 
-export const statusUpdateToDo = createAsyncThunk<
+export const updateStatusToDo = createAsyncThunk<
   {
     id: string;
     status: boolean;
@@ -11,7 +11,7 @@ export const statusUpdateToDo = createAsyncThunk<
     status: boolean;
   },
   { state: { toDo: ToDoState } }
->("statusUpdateToDo", async ({ id, status }, thunkApi) => {
+>("updateStatusToDo", async ({ id, status }, thunkApi) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   const state = thunkApi.getState().toDo.todos;
   const updatedToDos = [...state].map((item) =>

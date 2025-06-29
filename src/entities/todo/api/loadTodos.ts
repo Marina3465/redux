@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { State } from "../redux/reducers/toDoSlice";
+import { State } from "../types/ToDoState";
 
 export const loadTodos = createAsyncThunk<State[]>("loadToDo", async () => {
   await new Promise((resolve) => setTimeout(resolve, 1000));

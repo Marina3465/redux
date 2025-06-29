@@ -1,8 +1,9 @@
 import { ChangeEvent, MouseEvent } from "react";
-import { selectToDo, State } from "../shared/redux/reducers/toDoSlice";
-import { Button } from "../shared/styled/Button";
-import { Checkbox } from "../shared/styled/Checkbox";
-import { useAppDispatch } from "../shared/redux/store";
+import { selectToDo } from "../model/toDoSlice";
+import { Button } from "../../../shared/ui/Button";
+import { Checkbox } from "../../../shared/ui/Checkbox";
+import { useAppDispatch } from "../../../store";
+import { State } from "../types/ToDoState";
 
 type Props = {
   checked: boolean;
