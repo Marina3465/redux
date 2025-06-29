@@ -1,4 +1,4 @@
-import styles from "./EmptyDescription.module.scss";
+import styles from "./emptyDescription.module.scss";
 
 export function EmptyDescription() {
   return (
