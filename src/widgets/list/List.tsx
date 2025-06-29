@@ -1,11 +1,16 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { RootState, useAppDispatch, useAppSelector } from "../store";
-import { Search } from "../features/search-todo/Search";
-import { AddToDo } from "../features/add-todo/AddToDo";
-import { ToDo } from "../entities/todo/ui/ToDo";
-import { EmptyList, Loading } from "../shared/ui";
-import { deleteToDo, loadTodos, updateStatusToDo } from "../entities/todo/api";
-import { State } from "../entities/todo/types/ToDoState";
+import { RootState, useAppDispatch, useAppSelector } from "../../store";
+import { Search } from "../../features/search-todo/Search";
+import { AddToDo } from "../../features/add-todo/AddToDo";
+import { ToDo } from "../../entities/todo/ui/ToDo";
+import { EmptyList, Loading } from "../../shared/ui";
+import {
+  deleteToDo,
+  loadTodos,
+  updateStatusToDo,
+} from "../../entities/todo/api";
+import { State } from "../../entities/todo/types/ToDoState";
+import styles from "./list.module.scss";
 
 export function List() {
   const todos = useAppSelector((state: RootState) => state.toDo.todos);
@@ -51,47 +56,34 @@ export function List() {
 
   return (
     <>
-      <div
-        style={{
-          background: "var(--bg-color)",
-          height: "100vh",
-          width: "30%",
-          padding: "20px",
-          borderRight: "1px solid white",
-          overflowY: "auto",
-          overflowX: "hidden",
-        }}
-      >
+      <div className={styles.container}>
         <Search
           placeholder="Search note..."
           value={search}
           onChange={handleSearch}
         />
-        <div style={{ margin: "30px 0" }}>
+        <div className={styles.marginVertical}>
           <AddToDo placeholder="Add TO DO" />
         </div>
-        <div style={{ margin: "30px 0" }}>
+        <div className={styles.marginVertical}>
           {filteredTodos.length !== 0 ? (
-            [...filteredTodos].reverse().map((todo: State, index: number) => (
-              <div
-                key={todo.id}
-                style={{
-                  marginBottom: "15px",
-                  borderBottom:
-                    index !== filteredTodos.length - 1
-                      ? "1px solid grey"
-                      : "none",
-                  paddingBottom: "15px",
-                }}
-              >
-                <ToDo
-                  todo={todo}
-                  checked={todo.isFinish}
-                  onDelete={() => handleDelete(todo.id)}
-                  handleCheckToDo={handleCheckToDo}
-                />
-              </div>
-            ))
+            [...filteredTodos].reverse().map((todo: State, index: number) => {
+              const isLast = index !== filteredTodos.length - 1;
+
+              return (
+                <div
+                  key={todo.id}
+                  className={`${styles.todoItem} ${isLast ?? styles.last}`}
+                >
+                  <ToDo
+                    todo={todo}
+                    checked={todo.isFinish}
+                    onDelete={() => handleDelete(todo.id)}
+                    handleCheckToDo={handleCheckToDo}
+                  />
+                </div>
+              );
+            })
           ) : (
             <EmptyList />
           )}

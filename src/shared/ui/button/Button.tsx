@@ -1,6 +1,6 @@
 import { MouseEvent } from "react";
 import cn from "classnames";
-import "./style.css";
+import styles from "./button.module.scss";
 
 export const Button = ({
   children,
@@ -14,8 +14,8 @@ export const Button = ({
   return (
     <button
       className={cn(
-        type === "origin" && "styled-button",
-        type === "transparent" && "transparent-button"
+        type === "origin" && styles["styled-button"],
+        type === "transparent" && styles["transparent-button"]
       )}
       onClick={onClick}
     >

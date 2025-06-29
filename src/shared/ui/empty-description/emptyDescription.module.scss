@@ -1,0 +1,26 @@
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color-after);
+  text-align: center;
+  gap: 40px;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.svgWrapper {
+  margin-top: 10px;
+  width: 300px;
+
+  svg {
+    width: 100%;
+    height: auto;
+  }
+}

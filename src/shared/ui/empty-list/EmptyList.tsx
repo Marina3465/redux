@@ -1,28 +1,10 @@
+import styles from "./emptyList.module.scss";
+
 export function EmptyList() {
   return (
-    <div
-      style={{
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        color: "var(--text-color-after)",
-        textAlign: "center",
-        gap: "40px",
-      }}
-    >
-      <p
-        style={{
-          fontSize: "25px",
-          fontWeight: "600",
-          margin: 0,
-          marginTop: "100px",
-        }}
-      >
-        Create a TO DO
-      </p>
-      <div style={{ width: "200px" }}>
+    <div className={styles.container}>
+      <p className={styles.title}>Create a TO DO</p>
+      <div className={styles.svgWrapper}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"

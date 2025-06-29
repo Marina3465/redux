@@ -1,0 +1,17 @@
+.input {
+  color: var(--text-color);
+  font-size: 30px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-color, white);
+  outline: none;
+  padding: 6px 0;
+  margin-bottom: 20px;
+  width: 90%;
+  max-width: 1000px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+  &:focus {
+    border-bottom-color: var(--primary-color, #4caf50);
+  }
+}

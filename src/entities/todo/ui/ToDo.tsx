@@ -1,9 +1,10 @@
 import { ChangeEvent, MouseEvent } from "react";
 import { selectToDo } from "../model/toDoSlice";
-import { Button } from "../../../shared/ui/Button";
-import { Checkbox } from "../../../shared/ui/Checkbox";
+import { Button } from "../../../shared/ui/button/Button";
+import { Checkbox } from "../../../shared/ui/checkbox/Checkbox";
 import { useAppDispatch } from "../../../store";
 import { State } from "../types/ToDoState";
+import styles from "./toDo.module.scss";
 
 type Props = {
   checked: boolean;
@@ -17,12 +18,7 @@ export const ToDo = ({ todo, onDelete, handleCheckToDo, checked }: Props) => {
 
   return (
     <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        overflow: "hidden",
-        cursor: "pointer",
-      }}
+      className={styles.container}
       onClick={() => {
         dispatch(selectToDo(todo));
       }}
@@ -33,7 +29,7 @@ export const ToDo = ({ todo, onDelete, handleCheckToDo, checked }: Props) => {
         onChange={handleCheckToDo}
         checked={checked}
       />
-      <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+      <div className={styles.actions}>
         <Button
           type="transparent"
           onClick={(e: MouseEvent<HTMLButtonElement>) => {
@@ -47,7 +43,7 @@ export const ToDo = ({ todo, onDelete, handleCheckToDo, checked }: Props) => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="icon"
+            className={styles.icon}
           >
             <path
               strokeLinecap="round"

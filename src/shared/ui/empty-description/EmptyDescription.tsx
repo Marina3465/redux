@@ -1,27 +1,10 @@
+import styles from "./EmptyDescription.module.scss";
+
 export function EmptyDescription() {
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        color: "var(--text-color-after)",
-        textAlign: "center",
-        gap: "40px",
-      }}
-    >
-      <p
-        style={{
-          fontSize: "30px",
-          fontWeight: "600",
-          margin: 0,
-        }}
-      >
-        Choose the TO DO
-      </p>
-      <div style={{ marginTop: "10px", width: "300px" }}>
+    <div className={styles.container}>
+      <p className={styles.title}>Choose the TO DO</p>
+      <div className={styles.svgWrapper}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -29,7 +12,6 @@ export function EmptyDescription() {
           strokeWidth={1.5}
           stroke="currentColor"
           className="size-6"
-          style={{ width: "100%", height: "auto" }}
         >
           <path
             strokeLinecap="round"

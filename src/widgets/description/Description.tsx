@@ -1,10 +1,11 @@
 import MDEditor from "@uiw/react-md-editor";
 import { useEffect, useState } from "react";
-import { RootState, useAppSelector } from "../store";
-import { EmptyDescription } from "../shared/ui/EmptyDescription";
-import { saveDescription } from "../entities/todo/api/saveDescription";
-import { useAppDispatch } from "../store";
-import { EditableTitle } from "../features/title/EditableTitle";
+import { RootState, useAppSelector } from "../../store";
+import { EmptyDescription } from "../../shared/ui/empty-description/EmptyDescription";
+import { saveDescription } from "../../entities/todo/api/saveDescription";
+import { useAppDispatch } from "../../store";
+import { EditableTitle } from "../../features/title/EditableTitle";
+import styles from "./description.module.scss";
 
 export function Description() {
   const dispatch = useAppDispatch();
@@ -37,37 +38,12 @@ export function Description() {
   }, [dispatch, selectedToDo, value]);
 
   return (
-    <div
-      style={{
-        background: "var(--bg-color)",
-        height: "100vh",
-        width: "70%",
-        padding: "20px",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+    <div className={styles.container}>
       {selectedToDo ? (
         <>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginBottom: "20px",
-            }}
-          >
+          <div className={styles.header}>
             <EditableTitle title={selectedToDo?.title} id={selectedToDo?.id} />
-            {isSaved && (
-              <span
-                style={{
-                  color: "var(--text-color-after)",
-                  fontSize: "18px",
-                  marginLeft: "30px",
-                }}
-              >
-                Saved
-              </span>
-            )}
+            {isSaved && <span className={styles.savedText}>Saved</span>}
           </div>
           <MDEditor
             style={{ flex: 1 }}

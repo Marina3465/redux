@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}

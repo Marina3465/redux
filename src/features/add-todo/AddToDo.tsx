@@ -1,22 +1,12 @@
-import { styled } from "styled-components";
 import { ChangeEvent, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Loading } from "../../shared/ui/Loading";
-import { Button } from "../../shared/ui/Button";
+import { Loading } from "../../shared/ui/loading/Loading";
+import { Button } from "../../shared/ui/button/Button";
 import { useAppDispatch } from "../../store";
 import { nanoid } from "nanoid";
 import { createToDo } from "../../entities/todo/api";
-
-const Input = styled.input`
-  background: var(--bg-color);
-  border: none;
-  border-bottom: 1px solid var(--primary-color);
-  width: 100%;
-  padding: 10px 15px;
-  outline: none;
-  color: var(--text-color);
-`;
+import styles from "./addToDo.module.scss";
 
 type Props = {
   placeholder: string;
@@ -44,8 +34,8 @@ export const AddToDo = ({ placeholder }: Props) => {
 
   return (
     <>
-      <div style={{ display: "flex", gap: "10px" }}>
-        <Input
+      <div className={styles.container}>
+        <input
           value={title}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setTitle(e.target.value)
@@ -56,6 +46,7 @@ export const AddToDo = ({ placeholder }: Props) => {
             }
           }}
           placeholder={placeholder}
+          className={styles.input}
         />
         <Button onClick={handleAddToDo}>
           <img width={"16px"} src="/plus.svg" alt="" />
